@@ -6,6 +6,6 @@ The steps to install ionic app:
 
 - Import existing project to a directory
 
-- Then install cordova ionic via command-line of nodejs in the same directory of project
+- Go to your project directory and run by command-line
 
-- To run the app by type in command-line: ionic serve
+- To run the ionic app by type in command-line: "ionic serve"
