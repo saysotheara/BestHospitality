@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button (click)="homePage()">Home</button>
+    </ion-buttons>
+    <ion-title>thank</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <!-- logo  -->
+  <div text-center paddint-top>
+    <img src="{{selectedLogo}}" alt="logo" width=90>
+  </div>
+  
+  <!-- organization -->
+  <div text-center padding>
+    <h1 (click)="click = !click" style="font-family: Kh Mith Sala Pali;">
+      <strong>{{selectedOrganization}}</strong>
+    </h1>
+    <div *ngIf="click">
+      <hr>
+      <p style="font-family: DuanPenh;">ច្រកទ្វារ > {{selectedOrganization}}</p>
+    </div>
+  </div>
+  
+  <p style="font-family: Khmer Wat Phnom; color: orange; letter-spacing: 3px;" text-center>
+    សូមអរគុណសម្រាប់ការវាយតម្លៃ
+  </p>
+  <p style="font-family: Khmer Wat Phnom;">
+    ចម្លើយរបស់អ្នកពិតជាមានសារៈសំខាន់ណាស់សម្រាប់ការកែលម្អការងារផ្តល់សេវារបស់
+    <strong>{{selectedOrganization}}</strong>។ 
+  </p>
+  
+  <img src="../../assets/imgs/cbh/thank_you.png" alt="thank" style="align-self: center; visibility: hidden;">
+  <!-- logo  -->
+  <div text-center paddint-top>
+    <img src="../../assets/imgs/cbh/thank_you.png" alt="thank" width=90%>
+  </div>
+
+</ion-content>

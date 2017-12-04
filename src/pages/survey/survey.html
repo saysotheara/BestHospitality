@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button (click)="nextPage()">Next</button>
+    </ion-buttons>
+    <ion-title>survey</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <!-- logo  -->
+  <div text-center>
+    <img src="{{selectedLogo}}" alt="logo" width=90>
+  </div>
+
+  <!-- organization -->
+  <div text-center padding>
+    <h1 (click)="click = !click" style="font-family: Kh Mith Sala Pali;">
+      <strong>{{selectedOrganization}}</strong>
+    </h1>
+    <div *ngIf="click">
+      <hr>
+      <p>ច្រកទ្វារ > {{selectedOrganization}}</p>
+    </div>
+  </div>
+
+  <p>
+    សូមអរគុណសម្រាប់ការចំណាយពេល។ ចម្លើយរបស់អ្នកពិតជាមានសារៈសំខាន់ណាស់សម្រាប់ការកែលម្អការងារផ្តល់សេវារបស់
+    <strong style="font-family: Khmer Wat Phnom;">{{selectedOrganization}}</strong>។ សូមជ្រើសរើសវាយតម្លៃការផ្តល់សេវាទៅតាមចំណុចសំខាន់ៗដូចខាងក្រោមដោយ លេខ១ (អន់) ទៅលេខ៤ (ល្អបំផុត)។
+  </p>
+
+  <div>
+
+    <!-- question4 -->
+    <ion-item style="color: #008000; background-color: #f4f4f4; border-bottom: 2px solid grey;" (click)="nextPage()" margin-vertical>
+      <strong>{{question1_title}}</strong>
+    </ion-item>
+
+    <ion-item no-lines *ngFor="let q1 of question1">
+      <p>{{q1}}</p>
+      <ion-row radio-group>
+        <ion-col *ngFor="let ans of answer_text">
+          <ion-radio value="{{ans}}" (ionSelect)="mcqAnswer(q2, ans)"></ion-radio>
+          <p style="color: orange">{{ans}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+  </div>
+
+</ion-content>
