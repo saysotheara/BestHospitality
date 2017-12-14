@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { Http } from '@angular/http';
 
-import { Survey2Page } from '../survey2/survey2';
-// import { ArgumentType } from '@angular/core/src/view';
+import { Storage } from '@ionic/storage';
+import { Survey2Page } from '../survey2/survey2'
 
 @IonicPage()
 @Component({
@@ -12,76 +10,58 @@ import { Survey2Page } from '../survey2/survey2';
   templateUrl: 'survey.html',
 })
 export class SurveyPage {
+  click: boolean
   selectedLogo: string;
-  selectedOrganization: string;
   selectedLang: string;
-  click: boolean;
+  selectedOrganization: string;
 
   question1_title: string;
   question1: string[];
   answer_text: string[];
-  answer_text_en: string[];
-  answer_emoji: string[];
+  usr_ans: any = {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public https: Http) {
-  
-    this.selectedLang = navParams.get('lang');
-    this.click = false;
-    this.question1 = [];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+    this.click = false
+    this.question1_title = "ក.កន្លែង Check-in";
+    this.question1 = [
+      "១) ការស្វាគមន៍ និងភាពរួសរាយរាក់ទាក់របស់បុគ្គលិក",
+      "២) ការយកចិត្តទុកដាក់ និងភាពរហ័សរហួន",
+      "៣) ការរៀបចំខ្លួនរបស់បុគ្គលិក (ឯកសណ្ឋានត្រឹមត្រូវ)",
+      "៤) មន្ដ្រីមានជំនាញច្បាស់លាស់"
+    ];
 
-    this.answer_emoji = [
-      "../../assets/imgs/cbh/4.png", "../../assets/imgs/cbh/3.png",
-      "../../assets/imgs/cbh/2.png", "../../assets/imgs/cbh/1.png"];
-    this.answer_text = ["ល្អបំផុត"​, "ល្អ", "ធម្មតា", "អន់"];
+    // get selected language and set to storage
+    this.selectedLang = navParams.get('selectedLang');
+    this.storage.set('selectedLang', this.selectedLang);
 
-    this.storage.set("answer_emoji", JSON.stringify(this.answer_emoji));
-    this.storage.set("answer_text", JSON.stringify(this.answer_text));
-    this.storage.set("selectedLang", this.selectedLang.toString());
-
-    this.checkSelectedLang();
+    // get selected params
+    this.storage.get("selectedLogo").then(val => {
+      this.selectedLogo = val;
+    })
+    this.storage.get("selectedOrganization").then(val => {
+      this.selectedOrganization = val;
+    })
+    this.storage.get('answer_text').then(data => {
+      this.answer_text = JSON.parse(data);
+    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SurveyPage');
-    console.log("selected language: " + this.selectedLang); 
+    console.log(this.selectedLang);
   }
 
   nextPage() {
-    this.navCtrl.push(Survey2Page, { 
-      lang: this.selectedLang
+    this.navCtrl.push(Survey2Page, {
+      answer1: this.usr_ans
     });
   }
 
   mcqAnswer(question, answer) {
-    console.log("q1-" + question + "-" + answer);
-  }
-
-  checkSelectedLang() {
-    if (this.selectedLang == 'kh') {
-      this.https.get('http://localhost/ionic_api/group/1').map(res => res.json()).subscribe(data => {
-        this.question1_title = data.results.group_title_kh;
-      })
-
-      this.https.get('http://localhost/ionic_api/question/1').map(res => res.json()).subscribe(data => {
-        var result = data.results;
-        result.forEach(element => {
-          this.question1.push(element.question_kh);
-        });
-        console.log(result);
-      })
-    } else if (this.selectedLang == 'en') {
-      this.https.get('http://localhost/ionic_api/group/1').map(res => res.json()).subscribe(data => {
-        this.question1_title = data.results.group_title_en;
-      })
-
-      this.https.get('http://localhost/ionic_api/question/1').map(res => res.json()).subscribe(data => {
-        var result = data.results;
-        result.forEach(element => {
-          this.question1.push(element.question_en);
-        });
-        console.log(result);
-      })
-    }
+    var qid = "g1-" + question;
+    console.log("g1-" + question + "-" + answer);
+    this.usr_ans[qid] = answer;
+    console.log(this.usr_ans);
   }
 
 }

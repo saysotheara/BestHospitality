@@ -15,7 +15,7 @@ export class HomePage {
   users: any;
 
   constructor(public navCtrl: NavController, public https: Http) {
-    this.logos = ["../../assets/imgs/cbh/cbh_logo_private.png", "../../assets/imgs/cbh/cbh_logo_public_border.png", "../../assets/imgs/cbh/cbh_logo_public.png"];
+    this.logos = ["../../assets/imgs/cbh_logo_private.png", "../../assets/imgs/cbh_logo_public_border.png", "../../assets/imgs/cbh_logo_public.png"];
   }
 
   secondPage(selectedLogo) {

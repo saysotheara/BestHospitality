@@ -12,23 +12,43 @@ import { ThankPage } from "../thank/thank";
 export class Survey6Page {
   selectedLogo: string;
   selectedOrganization: string;
-  question6_kh: string[];
-  ans1: string[];
-  ans2: string[];
-  ans3: string[];
-  ans4: string[];
-  ans5: string[];
-  ans6: string[];
-  ans7: string;
+
+  question6_title: string;
+  question6: string[];
+  
+  option1: string[];
+  option2: string[];
+  option3: string[];
+  option4: string[];
+  option5: string[];
+  option6: string[];
+  option7: string;
+
+  user_ans: any = {}
+  user_ans6: any = {}
+
+  get_answer5: any = {}
+  get_answer4: any = {}
+  get_answer3: any = {}
+  get_answer2: any = {}
+  get_answer1: any = {}
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+
+    //get answer5 from navParams and set to storage
+    this.get_answer5 = navParams.get('answer5');
+    this.storage.set('answer5', JSON.stringify(this.get_answer5));
+
+    //get selected params
     storage.get('selectedLogo').then((val) => {
       this.selectedLogo = val;
     })
     storage.get('selectedOrganization').then((val) => {
       this.selectedOrganization = val;
     })
-    this.question6_kh = [
+
+    this.question6_title = "ច. ព័ត៌មានអំពីអ្នក (ចាំបាច់បំពេញ)";
+    this.question6 = [
       "១) ភេទ",
       "២) អាយុ",
       "៣) ប្រទេស",
@@ -37,18 +57,21 @@ export class Survey6Page {
       "៦) មុខរបរ",
       "៧) មតិរបស់អ្នក"
     ];
-    this.ans1 = [
+
+    this.option1 = [
       "ប្រុស",
       "ស្រី"
     ];
-    this.ans2 = [
+
+    this.option2 = [
       "១៨-២៥",
       "២៥-៣៥",
       "៣៦-៥០",
       "៥៩-៦៥",
       "៦៥+"
     ];
-    this.ans3 = [
+
+    this.option3 = [
       "កម្ពុជា",
       "វៀតណាម",
       "ថៃ",
@@ -66,10 +89,37 @@ export class Survey6Page {
       "កូរ៉េ",
       "ផ្សេងៗ"
     ];
-    this.ans4 = [
 
+    this.option4 = [
+      " ភ្នំពេញ",
+      " បន្ទាយមានជ័យ",
+      " បាត់ដំបង",
+      " កំពង់ចាម",
+      " កំពង់ឆ្នាំង",
+      " កំពង់ស្ពឺ",
+      " កំពង់ធំ",
+      " កំពត",
+      " កណ្ដាល",
+      " កោះកុង",
+      " ក្រចេះ",
+      " មណ្ឌលគិរី",
+      " ព្រះវិហារ",
+      " ព្រៃវែង",
+      " ពោធិ៍សាត់",
+      " រតនគិរី",
+      " សៀមរាប",
+      " ព្រះសីហនុ",
+      " ស្ទឹងត្រែង",
+      " ស្វាយរៀង",
+      " តាកែវ",
+      " ឧត្ដរមានជ័យ",
+      " កែប",
+      " ប៉ៃលិន",
+      " ត្បួងឃ្មុំ",
+      " ផ្សេងៗ"
     ];
-    this.ans5 = [
+
+    this.option5 = [
       "បឋមសិក្សា",
       "វិទ្យាល័យ",
       "ថ្នាក់ឧត្តមសិក្សា",
@@ -77,7 +127,8 @@ export class Survey6Page {
       "វិទ្យាស្ថាន សាលាបណ្តុះបណ្តាលវិជ្ជាជីវៈ",
       "ផ្សេងៗ"
     ];
-    this.ans6 = [
+    
+    this.option6 = [
       "សិស្ស និស្សិត",
       "មន្ត្រីស្ថាប័នរដ្ឋ",
       "បុគ្គលិកឯកជន",
@@ -89,12 +140,22 @@ export class Survey6Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Survey6Page');
+    for (let val in this.get_answer5) {
+      console.log("key: " + val + ", value: " + this.get_answer5[val]);
+    }
+    console.log("selectedOrganization: "+this.selectedOrganization);
   }
 
   nextPage(answer5) {
-    this.navCtrl.push(ThankPage, {
-      ans5: answer5
-    });
+    this.user_ans6['q6-1'] = this.user_ans.opt1
+    this.user_ans6['q6-2'] = this.user_ans.opt2
+    this.user_ans6['q6-3'] = this.user_ans.opt3
+    this.user_ans6['q6-4'] = this.user_ans.opt4
+    this.user_ans6['q6-5'] = this.user_ans.opt5
+    this.user_ans6['q6-6'] = this.user_ans.opt6
+    this.user_ans6['q6-7'] = this.user_ans.opt7
+    this.storage.set('answer6', JSON.stringify(this.user_ans6));
+    this.navCtrl.push(ThankPage);
   }
 
 }

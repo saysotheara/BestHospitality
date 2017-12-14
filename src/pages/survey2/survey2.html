@@ -4,7 +4,7 @@
     <ion-buttons end>
       <button ion-button (click)="nextPage()">Next</button>
     </ion-buttons>
-    <ion-title>survey2</ion-title>
+    <!-- <ion-title>{{question2_title}}</ion-title> -->
   </ion-navbar>
 
 </ion-header>
@@ -29,19 +29,18 @@
   </div>
 
   <!-- question2 -->
-  <ion-item style="color: #008000; background-color: #f4f4f4; border-bottom: 2px solid grey;" (click)="nextPage('a1')" margin-vertical>
+  <ion-item style="color: #008000; background-color: #f4f4f4; border-bottom: 2px solid grey;" margin-vertical>
     <strong>{{question2_title}}</strong>
   </ion-item>
   
-    <ion-item no-lines *ngFor="let q2 of question2">
+    <ion-item no-lines *ngFor="let q2 of question2; let qid = index">
       <p>{{q2}}</p>
       <ion-row radio-group>
         <ion-col *ngFor="let ans of answer_text">
-          <ion-radio value="{{ans}}" (ionSelect)="mcqAnswer(q2, ans)"></ion-radio>
+          <ion-radio value="{{ans}}" (ionSelect)="mcqAnswer(qid+1, ans)"></ion-radio>
           <p style="color: orange">{{ans}}</p>
         </ion-col>
       </ion-row>
     </ion-item>
-  
 
 </ion-content>

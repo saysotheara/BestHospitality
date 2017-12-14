@@ -18,25 +18,32 @@ export class Survey2Page {
 
   question2_title: string;
   question2: string[];
-  answer_choice: Array<{
-    text: string,
-    emoji: string
-  }>;
   answer_text: string[];
-  answer_emoji: string[];
+  usr_ans2: any = {}
+  get_answer1: any = {}
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public https: Http) {
 
     this.click = false;
-    this.question2 = [];
-
     this.selectedLang = navParams.get('lang');
 
+    // title and question
+    this.question2_title = "ខ. អន្ដោប្រវេសន៍";
+    this.question2 = [
+      "១) ការស្វាគមន៍ និងភាពរួសរាយរាក់ទាក់របស់មន្ត្រី",
+      "២) ការយកចិត្តទុកដាក់ និងភាពរហ័សរហួន",
+      "៣) ការរៀបចំខ្លួនរបស់មន្ដ្រី (ឯកសណ្ឋានត្រឹមត្រូវ)",
+      "៤) ឆ្លើយតបករណីមានបញ្ហា",
+      "៥) សុច្ចរិតភាពរបស់មន្ដ្រី",
+    ];
+
+    //get answer1 from navParams and set to storage
+    this.get_answer1 = navParams.get('answer1');
+    this.storage.set('answer1', JSON.stringify(this.get_answer1));
+
+    // get answer choice from storage
     storage.get("answer_text").then((val) => {
       this.answer_text = JSON.parse(val);
-    });
-    storage.get("answer_emoji").then((val) => {
-      this.answer_emoji = JSON.parse(val);
     });
 
      // get selected params
@@ -46,48 +53,24 @@ export class Survey2Page {
     storage.get("selectedOrganization").then((val) => {
       this.selectedOrganization = val;
     });
-    
-    this.checkSelectedLang();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Survey2Page');
-  }
-
-  nextPage() {
-    this.navCtrl.push(Survey3Page);
-  }
-
-  mcqAnswer(question, answer) {
-    console.log("q2-" + question + "-" + answer); 
-  }
-
-  checkSelectedLang() {
-    if (this.selectedLang == 'kh') {
-      this.https.get('http://localhost/ionic_api/group/2').map(res => res.json()).subscribe(data => {
-        this.question2_title = data.results.group_title_kh;
-      })
-
-      this.https.get('http://localhost/ionic_api/question/2').map(res => res.json()).subscribe(data => {
-        var result = data.results;
-        result.forEach(element => {
-          this.question2.push(element.question_kh);
-        })
-        console.log(result);
-      })
-    } else if (this.selectedLang == 'en') {
-      this.https.get('http://localhost/ionic_api/group/2').map(res => res.json()).subscribe(data => {
-        this.question2_title = data.results.group_title_en;
-      });
-
-      this.https.get('http://localhost/ionic_api/question/2').map(res => res.json()).subscribe(data => {
-        var result = data.results;
-        result.forEach(element => {
-          this.question2.push(element.question_en);
-        });
-        console.log(result);
-      });
+    for (let key in this.get_answer1) {
+      console.log("key:"+key+",val:"+this.get_answer1[key]);
     }
   }
 
+  nextPage() {
+    this.navCtrl.push(Survey3Page, {
+      answer2: this.usr_ans2
+    });
+  }
+
+  mcqAnswer(question, answer) {
+    let qid = "g2-" + question;
+    this.usr_ans2[qid] = answer;
+    console.log(this.usr_ans2);
+  }
 }

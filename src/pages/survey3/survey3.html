@@ -4,7 +4,7 @@
     <ion-buttons end>
       <button ion-button (click)="nextPage()">Next</button>
     </ion-buttons>
-    <ion-title>survey3</ion-title>
+    <!-- <ion-title>{{question3_title}}</ion-title> -->
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
   <div text-center>
     <img src="{{selectedLogo}}" alt="logo" width=90>
   </div>
-  
+
   <!-- organization -->
   <div text-center padding>
     <h1 (click)="click = !click" style="font-family: Kh Mith Sala Pali;">
@@ -29,20 +29,18 @@
   </div>
 
   <!-- question3 -->
-  <ion-item style="color: #008000; background-color: #f4f4f4; border-bottom: 2px solid grey;" (click)="nextPage('a2')" margin-vertical>
-    <strong>3. Baggage and body (X-Ray) Checkpoint</strong>
+  <ion-item style="color: #008000; background-color: #f4f4f4; border-bottom: 2px solid grey;" margin-vertical>
+    <strong>{{question3_title}}</strong>
   </ion-item>
-  <!-- <div *ngIf="showq3"> -->
-    <ion-item no-lines *ngFor="let q3 of question3_kh">
-      <p>{{q3}}</p>
-      <ion-row radio-group>
-        <ion-col *ngFor="let ans of answer_text">
-          <ion-radio value="{{ans}}" (ionSelect)="mcqAnswer(q3, ans)"></ion-radio>
-          <!-- <img src="{{ans.emoji}}" alt="{{ans.text}}" width=20> -->
-          <p style="color: orange">{{ans}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-item>
-  <!-- </div> -->
+
+  <ion-item no-lines *ngFor="let q3 of question3_kh; let qid = index">
+    <p>{{q3}}</p>
+    <ion-row radio-group>
+      <ion-col *ngFor="let ans of answer_text">
+        <ion-radio value="{{ans}}" (ionSelect)="mcqAnswer(qid+1, ans)"></ion-radio>
+        <p style="color: orange">{{ans}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-item>
 
 </ion-content>
