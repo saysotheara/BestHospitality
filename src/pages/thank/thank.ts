@@ -51,7 +51,7 @@ export class ThankPage {
   }
 
   sendDataToDb() {
-    // get user answer from storage
+    // get user answer from storage and put to database
     this.storage.get('answer1').then(data => {
       this.get_answer1 = JSON.parse(data)
       for (let key in this.get_answer1) {
