@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 import { SearchOrgPage } from '../search-org/search-org';
 
@@ -12,17 +10,17 @@ import { SearchOrgPage } from '../search-org/search-org';
   
 export class HomePage {
   logos: string[];
-  users: any;
 
-  constructor(public navCtrl: NavController, public https: Http) {
+  constructor(public navCtrl: NavController) {
+    // get logos from assets
     this.logos = ["../../assets/imgs/cbh_logo_private.png", "../../assets/imgs/cbh_logo_public_border.png", "../../assets/imgs/cbh_logo_public.png"];
   }
 
+  // go to second page with param logo
   secondPage(selectedLogo) {
     this.navCtrl.push(SearchOrgPage, {
       logo: selectedLogo
-    });
-    console.log("home page is here");
+    })
   }
 
 }

@@ -14,6 +14,8 @@ export class ThankPage {
   selectedLogo: string;
   selectedOrganization: string;
 
+  /* variable get total answer of previous survey page and
+  then upload to database */
   get_answer1: any = {};
   get_answer2: any = {};
   get_answer3: any = {};
@@ -23,14 +25,17 @@ export class ThankPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public https: Http) {
 
+    //get selected params from storage
     storage.get('selectedLogo').then((val) => {
       this.selectedLogo = val
     })
     storage.get('selectedOrganization').then(data => {
       this.selectedOrganization = data
     })
+    //get answer of page survey6 from navParams
     this.get_answer6 = navParams.get('answer6')
 
+    // post data to database
     this.sendDataToDb()  
   }
 

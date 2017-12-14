@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
 import { Storage } from '@ionic/storage';
+
 import { Survey2Page } from '../survey2/survey2'
 
 @IonicPage()
@@ -34,7 +34,7 @@ export class SurveyPage {
     this.selectedLang = navParams.get('selectedLang');
     this.storage.set('selectedLang', this.selectedLang);
 
-    // get selected params
+    // get selected params from storage
     this.storage.get("selectedLogo").then(val => {
       this.selectedLogo = val;
     })
@@ -59,7 +59,6 @@ export class SurveyPage {
 
   mcqAnswer(question, answer) {
     var qid = "g1-" + question;
-    console.log("g1-" + question + "-" + answer);
     this.usr_ans[qid] = answer;
     console.log(this.usr_ans);
   }

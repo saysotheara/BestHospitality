@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
-import { Http } from '@angular/http';
 
 import { Survey3Page } from '../survey3/survey3';
 
@@ -22,8 +21,7 @@ export class Survey2Page {
   usr_ans2: any = {}
   get_answer1: any = {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public https: Http) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     this.click = false;
     this.selectedLang = navParams.get('lang');
 
@@ -46,7 +44,7 @@ export class Survey2Page {
       this.answer_text = JSON.parse(val);
     });
 
-     // get selected params
+     // get selected params from storage
     storage.get("selectedLogo").then((val) => {
       this.selectedLogo = val;
     });

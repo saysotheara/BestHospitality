@@ -14,16 +14,15 @@ export class Survey4Page {
   selectedLogo: string;
   selectedOrganization: string;
 
+  //question and title
   question4_title: string;
   question4_kh: string[];
+
   answer_text: string[];
   user_ans4: any = {}
   get_answer3: any = {}
-  get_answer2: any = {}
-  get_answer1: any = {}
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
-
     this.question4_title = "ឃ. មន្ត្រីគយ";
     this.question4_kh = [
       "១) ការស្វាគមន៍ និងភាពរួសរាយរាក់ទាក់របស់បុគ្គលិក",
@@ -34,16 +33,13 @@ export class Survey4Page {
       "៦) ភាពស្មុគស្មាញក្នុងការត្រួតពិនិត្យឥវ៉ាន់",
       "៧) ឆ្លើយតបករណីមានបញ្ហា"
     ];
-
     this.click = false;
 
     //get answer3 from navParams and set to storage
     this.get_answer3 = navParams.get('answer3');
-    // this.get_answer2 = navParams.get('answer2');
-    // this.get_answer1 = navParams.get('answer1')
     this.storage.set('answer3', JSON.stringify(this.get_answer3));
 
-    //get selected params
+    //get selected params from storage
     storage.get('selectedLogo').then((val) => {
       this.selectedLogo = val;
     });
@@ -64,10 +60,7 @@ export class Survey4Page {
 
   nextPage() {
     this.navCtrl.push(Survey5Page, {
-      answer4: this.user_ans4,
-      // answer3: this.get_answer3,
-      // answer2: this.get_answer2,
-      // answer1: this.get_answer1
+      answer4: this.user_ans4
     });
   }
 

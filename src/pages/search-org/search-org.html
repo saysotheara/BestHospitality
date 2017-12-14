@@ -16,8 +16,9 @@
   </div>
   <hr>
 
+  <!-- show card of organization with qrcode -->
   <div text-center>
-    <ion-card *ngFor="let item of items" (click)="itemTapped(item.name)" style="width: 140px; display: inline-block; vertical-align: top" padding-horizontal>
+    <ion-card *ngFor="let item of items" (click)="nextPage(item.name)" style="width: 140px; display: inline-block; vertical-align: top" padding-horizontal>
       <img src="{{item.qr}}" />
       <ion-card-content>
         <p style="color: #997F4B" no-padding>
@@ -25,7 +26,6 @@
         </p>
       </ion-card-content>
     </ion-card>
-
   </div>
 
 </ion-content>

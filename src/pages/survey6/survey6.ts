@@ -13,9 +13,15 @@ export class Survey6Page {
   selectedLogo: string;
   selectedOrganization: string;
 
+  //question and title
   question6_title: string;
   question6: string[];
-  
+
+  user_ans: any = {} 
+  user_ans6: any = {}
+  get_answer5: any = {}
+
+  // var to show individual select option
   option1: string[];
   option2: string[];
   option3: string[];
@@ -24,22 +30,13 @@ export class Survey6Page {
   option6: string[];
   option7: string;
 
-  user_ans: any = {}
-  user_ans6: any = {}
-
-  get_answer5: any = {}
-  get_answer4: any = {}
-  get_answer3: any = {}
-  get_answer2: any = {}
-  get_answer1: any = {}
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
 
     //get answer5 from navParams and set to storage
     this.get_answer5 = navParams.get('answer5');
     this.storage.set('answer5', JSON.stringify(this.get_answer5));
 
-    //get selected params
+    //get selected params from storage
     storage.get('selectedLogo').then((val) => {
       this.selectedLogo = val;
     })
@@ -143,10 +140,10 @@ export class Survey6Page {
     for (let val in this.get_answer5) {
       console.log("key: " + val + ", value: " + this.get_answer5[val]);
     }
-    console.log("selectedOrganization: "+this.selectedOrganization);
   }
 
   nextPage(answer5) {
+    // get user answer from individual select option
     this.user_ans6['q6-1'] = this.user_ans.opt1
     this.user_ans6['q6-2'] = this.user_ans.opt2
     this.user_ans6['q6-3'] = this.user_ans.opt3

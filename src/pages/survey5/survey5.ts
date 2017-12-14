@@ -14,13 +14,17 @@ export class Survey5Page {
   selectedLogo: string;
   selectedOrganization: string;
 
+  // question and title
   question5_title: string;
   question5: string[];
+
   answer_text: string[];
   user_ans5: any = {};
   get_answer4: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+
+    // question and title
     this.question5_title = "ង. ចត្តាឡីសក្ដិ";
     this.question5 = [
       "១) ការស្វាគមន៍ និងភាពរួសរាយរាក់ទាក់របស់មន្ត្រី",
@@ -29,14 +33,14 @@ export class Survey5Page {
       "៤) ឆ្លើយតបករណីមានបញ្ហា",
       "៥) មន្ដ្រីមានជំនាញច្បាស់លាស់"
     ];
-
+    // set sub-lable under selected organization to false
     this.click = false;
 
     //get answer4 from navParams and set to storage
     this.get_answer4 = navParams.get('answer4');
     this.storage.set('answer4', JSON.stringify(this.get_answer4));
 
-    //get selected params
+    //get selected params from storage
     storage.get('selectedLogo').then((val) => {
       this.selectedLogo = val;
     });
@@ -61,6 +65,7 @@ export class Survey5Page {
     });
   }
 
+  // store answer when user response
   mcqAnswer(question, answer) {
     let qid = "g5-" + question;
     this.user_ans5[qid] = answer;

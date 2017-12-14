@@ -11,7 +11,7 @@ import { ChooseLangPage } from '../choose-lang/choose-lang';
   })
   
 export class SearchOrgPage {
-  selectedLogo: any;
+  selectedLogo: string;
   orgName_kh: string[];
   orgName_en: string[];
   items: Array<{
@@ -44,6 +44,7 @@ export class SearchOrgPage {
       "CAMBODIA-LAOS BORDER"
     ];
 
+    //push organization and name
     this.items = [];
     for (let i = 0; i < 10; i++){
       this.items.push({
@@ -52,16 +53,19 @@ export class SearchOrgPage {
       });
     }  
     
+    /* get selected logo from navParam and 
+    set storage to use in another page */
     this.selectedLogo = navParams.get('logo');
     this.storage.set("selectedLogo", this.selectedLogo);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchOrgPage');
-    // console.log(this.selectedLogo);
+    console.log(this.selectedLogo);
   }
 
-  itemTapped(selectedOrganization) {
+  // go to next page with param selected organization
+  nextPage(selectedOrganization) {
     this.navCtrl.push(ChooseLangPage, {
       organization: selectedOrganization
     });
